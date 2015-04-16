@@ -1,0 +1,11 @@
+#edit-mode: -*- python -*-
+#coding:utf8
+
+CXX('g++')
+CXXFLAGS('-D_GNU_SOURCE -D__STDC_LIMIT_MACROS -g -pipe -W -Wall -fPIC -fno-omit-frame-pointer')
+LDFLAGS('-ldl -lpthread -lm -lrt')
+
+sources = GLOB('*.cpp')
+headers = GLOB('*.h')
+
+STATIC_LIB('common_lib', sources, headers)
