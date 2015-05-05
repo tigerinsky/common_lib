@@ -40,8 +40,9 @@ int FileGroupWriter::init(const char* dir, const char* prefix, uint32_t max_len)
 int FileGroupWriter::write(const void* data, 
                            int len,
                            int* file_no,
-                           uint32_t* off) {
-    if (_current_len > _max_len) {
+                           uint32_t* off,
+                           bool force_not_create) {
+    if (_current_len > _max_len && !force_not_create) {
         (void)fclose(_fp); 
         _fp = get_file(_dir.c_str(), _prefix.c_str(), _file_no + 1);
         if (!_fp) {

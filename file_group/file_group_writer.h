@@ -21,7 +21,8 @@ public:
     int write(const void* data, 
               int len,
               int* file_no = NULL,
-              uint32_t* off = NULL);
+              uint32_t* off = NULL,
+              bool force_not_create = false);
     int finish();
 
 private:
