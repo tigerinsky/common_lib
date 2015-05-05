@@ -37,7 +37,10 @@ int FileGroupWriter::init(const char* dir, const char* prefix, uint32_t max_len)
     return 0;
 }
 
-int FileGroupWriter::write(const void* data, int len) {
+int FileGroupWriter::write(const void* data, 
+                           int len,
+                           int* file_no,
+                           uint32_t* off) {
     if (_current_len > _max_len) {
         (void)fclose(_fp); 
         _fp = get_file(_dir.c_str(), _prefix.c_str(), _file_no + 1);
@@ -50,6 +53,8 @@ int FileGroupWriter::write(const void* data, int len) {
     if (1 != fwrite(data, len, 1, _fp)) {
         return 2; 
     }
+    if (file_no) *file_no = _file_no; 
+    if (off) *off = _current_len; 
     _current_len += len; 
     return 0;
 }

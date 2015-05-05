@@ -15,8 +15,13 @@ public:
     virtual ~FileGroupWriter();
 
 public:
-    int init(const char* dir, const char* prefix, uint32_t max_len = DEFAULT_MAX_LEN);
-    int write(const void* data, int len);
+    int init(const char* dir, 
+             const char* prefix, 
+             uint32_t max_len = DEFAULT_MAX_LEN);
+    int write(const void* data, 
+              int len,
+              int* file_no = NULL,
+              uint32_t* off = NULL);
     int finish();
 
 private:
