@@ -1,7 +1,7 @@
 #ifndef __SIGN_H_
 #define __SIGN_H_
 
-#include "hash/city_hash.h"
+#include "city_hash.h"
 
 //calc string 64 bit hash value
 #define sign64_str(buf, len) \

@@ -8,6 +8,7 @@ LIBPATH=-Xlinker "-(" -ldl -lpthread -lm -lrt /home/meihua/dy/src/common_lib/../
 #---------- phony ----------
 .PHONY:all
 all:prepare \
+test_sign \
 test_file_group \
 libcommon_lib.a \
 
@@ -19,10 +20,15 @@ prepare:
 
 .PHONY:clean
 clean:
-	rm -rf /home/meihua/dy/src/common_lib/file_group/file_group_writer.o /home/meihua/dy/src/common_lib/string_helper.o /home/meihua/dy/src/common_lib/file_group/file_group_reader.o /home/meihua/dy/src/common_lib/test/test_file_group.o /home/meihua/dy/src/common_lib/test.o /home/meihua/dy/src/common_lib/pinyin.o ./output
+	rm -rf /home/meihua/dy/src/common_lib/file_group/file_group_writer.o /home/meihua/dy/src/common_lib/file_group/file_group_reader.o /home/meihua/dy/src/common_lib/hash/city_hash.o /home/meihua/dy/src/common_lib/string_helper.o /home/meihua/dy/src/common_lib/test/test_file_group.o /home/meihua/dy/src/common_lib/test/test_sign.o /home/meihua/dy/src/common_lib/pinyin.o ./output
 
 
 #---------- link ----------
+test_sign:/home/meihua/dy/src/common_lib/test/test_sign.o \
+/home/meihua/dy/src/common_lib/hash/city_hash.o \
+
+	$(CXX) /home/meihua/dy/src/common_lib/test/test_sign.o /home/meihua/dy/src/common_lib/hash/city_hash.o $(LIBPATH) -o ./output/bin/test_sign
+
 test_file_group:/home/meihua/dy/src/common_lib/test/test_file_group.o \
 /home/meihua/dy/src/common_lib/file_group/file_group_writer.o \
 /home/meihua/dy/src/common_lib/file_group/file_group_reader.o \
@@ -33,10 +39,9 @@ libcommon_lib.a:/home/meihua/dy/src/common_lib/pinyin.o \
 /home/meihua/dy/src/common_lib/string_helper.o \
 /home/meihua/dy/src/common_lib/file_group/file_group_writer.o \
 /home/meihua/dy/src/common_lib/file_group/file_group_reader.o \
-/home/meihua/dy/src/common_lib/test.o \
 
-	ar crs ./output/lib/libcommon_lib.a /home/meihua/dy/src/common_lib/pinyin.o /home/meihua/dy/src/common_lib/string_helper.o /home/meihua/dy/src/common_lib/file_group/file_group_writer.o /home/meihua/dy/src/common_lib/file_group/file_group_reader.o /home/meihua/dy/src/common_lib/test.o
-	cp /home/meihua/dy/src/common_lib/pinyin.h /home/meihua/dy/src/common_lib/sign.h /home/meihua/dy/src/common_lib/file_group/file_group_writer.h /home/meihua/dy/src/common_lib/file_group/file_group_reader.h /home/meihua/dy/src/common_lib/string_helper.h ./output/include/
+	ar crs ./output/lib/libcommon_lib.a /home/meihua/dy/src/common_lib/pinyin.o /home/meihua/dy/src/common_lib/string_helper.o /home/meihua/dy/src/common_lib/file_group/file_group_writer.o /home/meihua/dy/src/common_lib/file_group/file_group_reader.o
+	cp /home/meihua/dy/src/common_lib/file_group/file_group_writer.h /home/meihua/dy/src/common_lib/pinyin.h /home/meihua/dy/src/common_lib/hash/city_hash.h /home/meihua/dy/src/common_lib/hash/sign.h /home/meihua/dy/src/common_lib/file_group/file_group_reader.h /home/meihua/dy/src/common_lib/string_helper.h ./output/include/
 
 
 #---------- obj ----------
@@ -44,22 +49,24 @@ libcommon_lib.a:/home/meihua/dy/src/common_lib/pinyin.o \
  /home/meihua/dy/src/common_lib/file_group/file_group_writer.cpp \
  /home/meihua/dy/src/common_lib/file_group/file_group_writer.h
 	$(CXX) $(INCPATH) $(CXXFLAGS) -c -o /home/meihua/dy/src/common_lib/file_group/file_group_writer.o /home/meihua/dy/src/common_lib/file_group/file_group_writer.cpp
-/home/meihua/dy/src/common_lib/string_helper.o: /home/meihua/dy/src/common_lib/string_helper.cpp \
- /home/meihua/dy/src/common_lib/string_helper.h
-	$(CXX) $(INCPATH) $(CXXFLAGS) -c -o /home/meihua/dy/src/common_lib/string_helper.o /home/meihua/dy/src/common_lib/string_helper.cpp
 /home/meihua/dy/src/common_lib/file_group/file_group_reader.o: \
  /home/meihua/dy/src/common_lib/file_group/file_group_reader.cpp \
  /home/meihua/dy/src/common_lib/file_group/file_group_reader.h \
  string_helper.h
 	$(CXX) $(INCPATH) $(CXXFLAGS) -c -o /home/meihua/dy/src/common_lib/file_group/file_group_reader.o /home/meihua/dy/src/common_lib/file_group/file_group_reader.cpp
+/home/meihua/dy/src/common_lib/hash/city_hash.o: /home/meihua/dy/src/common_lib/hash/city_hash.cpp \
+ /home/meihua/dy/src/common_lib/hash/city_hash.h
+	$(CXX) $(INCPATH) $(CXXFLAGS) -c -o /home/meihua/dy/src/common_lib/hash/city_hash.o /home/meihua/dy/src/common_lib/hash/city_hash.cpp
+/home/meihua/dy/src/common_lib/string_helper.o: /home/meihua/dy/src/common_lib/string_helper.cpp \
+ /home/meihua/dy/src/common_lib/string_helper.h
+	$(CXX) $(INCPATH) $(CXXFLAGS) -c -o /home/meihua/dy/src/common_lib/string_helper.o /home/meihua/dy/src/common_lib/string_helper.cpp
 /home/meihua/dy/src/common_lib/test/test_file_group.o: \
  /home/meihua/dy/src/common_lib/test/test_file_group.cpp \
  file_group/file_group_writer.h file_group/file_group_reader.h
 	$(CXX) $(INCPATH) $(CXXFLAGS) -c -o /home/meihua/dy/src/common_lib/test/test_file_group.o /home/meihua/dy/src/common_lib/test/test_file_group.cpp
-/home/meihua/dy/src/common_lib/test.o: /home/meihua/dy/src/common_lib/test.cpp \
- /home/meihua/dy/src/common_lib/sign.h \
- /home/meihua/dy/src/common_lib/hash/city_hash.h
-	$(CXX) $(INCPATH) $(CXXFLAGS) -c -o /home/meihua/dy/src/common_lib/test.o /home/meihua/dy/src/common_lib/test.cpp
+/home/meihua/dy/src/common_lib/test/test_sign.o: /home/meihua/dy/src/common_lib/test/test_sign.cpp \
+ hash/sign.h hash/city_hash.h
+	$(CXX) $(INCPATH) $(CXXFLAGS) -c -o /home/meihua/dy/src/common_lib/test/test_sign.o /home/meihua/dy/src/common_lib/test/test_sign.cpp
 /home/meihua/dy/src/common_lib/pinyin.o: /home/meihua/dy/src/common_lib/pinyin.cpp \
  /home/meihua/dy/src/common_lib/pinyin.h
 	$(CXX) $(INCPATH) $(CXXFLAGS) -c -o /home/meihua/dy/src/common_lib/pinyin.o /home/meihua/dy/src/common_lib/pinyin.cpp
