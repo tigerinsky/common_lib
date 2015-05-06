@@ -5,7 +5,7 @@ CXX('g++')
 CXXFLAGS('-D_GNU_SOURCE -D__STDC_LIMIT_MACROS -g -pipe -W -Wall -fPIC -fno-omit-frame-pointer')
 LDFLAGS('-ldl -lpthread -lm -lrt')
 
-sources = GLOB('sign/*.cpp file_group/*.cpp *.cpp')
+sources = GLOB('hash/*.cpp file_group/*.cpp *.cpp')
 headers = GLOB('*.h file_group/*.h hash/*.h')
 
 APP('test_file_group', GLOB('test/test_file_group.cpp file_group/*.cpp'))
