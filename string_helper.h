@@ -1,7 +1,7 @@
 #ifndef __STRING_HELPER_H_
 #define __STRING_HELPER_H_
 
-namespace lj {
+namespace tis {
 namespace StringHelper {
 
 char* rtrim(char* s);
