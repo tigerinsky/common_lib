@@ -8,6 +8,11 @@ void test_split() {
     for (auto ite = list.begin(); ite != list.end(); ++ite) {
         printf("[%s]\n", ite->c_str()); 
     }
+    printf("--------------\n");
+    tis::StringHelper::split(s, '\t', &list, false);
+    for (auto ite = list.begin(); ite != list.end(); ++ite) {
+        printf("[%s]\n", ite->c_str()); 
+    }
 }
 
 int main (int argc, char** argv) {

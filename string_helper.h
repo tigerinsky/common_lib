@@ -11,7 +11,10 @@ char* rtrim(char* s);
 char* ltrim(char* s);
 char* trim(char* s);
 
-void split(const char* s, char sep, std::vector<std::string>* list);
+void split(const char* s, 
+           char sep, 
+           std::vector<std::string>* list, 
+           bool allow_empty=true);
 
 inline int next_term_utf8(const char* str);
 
