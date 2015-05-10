@@ -63,6 +63,22 @@ char* trim(char* s) {
     return s;
 }
 
+void split(const char* s, char sep, std::vector<std::string>* list) {
+    if (!s || !list) return;
+    const char* begin = s;
+    const char* end = NULL;
+    while (true) {
+        end = strchr(begin, sep);
+        if (end) {
+            list->push_back(std::string(begin, end - begin)); 
+        } else {
+            list->push_back(std::string(begin)); 
+            break;
+        }
+        begin = end + 1;
+    }
+}
+
 inline int next_term_utf8(const char* str) {
     unsigned char *strIn = (unsigned char *)str;
 

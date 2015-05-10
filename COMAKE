@@ -2,7 +2,7 @@
 #coding:utf8
 
 CXX('g++')
-CXXFLAGS('-D_GNU_SOURCE -D__STDC_LIMIT_MACROS -g -pipe -W -Wall -fPIC -fno-omit-frame-pointer')
+CXXFLAGS('-std=gnu++11 -D_GNU_SOURCE -D__STDC_LIMIT_MACROS -g -pipe -W -Wall -fPIC -fno-omit-frame-pointer')
 LDFLAGS('-ldl -lpthread -lm -lrt')
 
 sources = GLOB('hash/*.cpp file_group/*.cpp *.cpp')
@@ -10,4 +10,5 @@ headers = GLOB('*.h file_group/*.h hash/*.h')
 
 APP('test_file_group', GLOB('test/test_file_group.cpp file_group/*.cpp'))
 APP('test_sign', GLOB('test/test_sign.cpp hash/*.cpp'))
+APP('test_string_helper', GLOB('test/test_string_helper.cpp string_helper.cpp'))
 STATIC_LIB('common_lib', sources, headers)
