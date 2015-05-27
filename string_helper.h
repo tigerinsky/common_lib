@@ -16,7 +16,7 @@ void split(const char* s,
            std::vector<std::string>* list, 
            bool allow_empty=true);
 
-inline int next_term_utf8(const char* str);
+int next_term_utf8(const char* str);
 
 }
 }

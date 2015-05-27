@@ -87,12 +87,16 @@ void split(const char* s,
     }
 }
 
-inline int next_term_utf8(const char* str) {
+int next_term_utf8(const char* str) {
     unsigned char *strIn = (unsigned char *)str;
 
     if (str == NULL) {
         return -1;
     }
+    if ('\0' == *str) {
+        return 0; 
+    }
+
 
     /* 增加的判断分支主要是考虑了unicode中的情况，过滤了一些不应该出现的区域,
      * 因为字节数多的不能比少的unicode值小*/
